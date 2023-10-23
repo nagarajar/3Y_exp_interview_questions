@@ -47,6 +47,7 @@ public class StringValidation {
 				stack.push(ch);
 			}
 		}
+		
 		if(stack.isEmpty()) {
 			return true;
 		}

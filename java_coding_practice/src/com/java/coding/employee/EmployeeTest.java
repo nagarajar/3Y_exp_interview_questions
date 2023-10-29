@@ -1,6 +1,7 @@
 package com.java.coding.employee;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,15 +13,34 @@ public class EmployeeTest {
 		 * Using Java 8 Feature solve the below questions
 		 * Q1. How many male and female employees are there in organization ?
 		 * Q2. Print all department names in the organization ?
+		 * Q3. Get count of employees where sal > 75000, and < 75000 separate counts
+		 * Q4. Get list of employee names
+		 * Q5. Sort the list of employee names
 		 */
 		
 		List<Employee> employees = getAllEmployees();
+		System.out.println("size(): "+ employees.size());
 		
 		Map<String, Long> genderCount = employees.stream().collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
 		System.out.println("Gender Count: "+ genderCount);
 		
 		List<String> departments = employees.stream().map(Employee::getDepartment).distinct().toList();
 		System.out.println("Departments: "+ departments);
+		
+		long countSalGreater = employees.stream().filter(e -> e.getSalary()>75000).count();
+		System.out.println("countSalGreater 75000: "+ countSalGreater);
+		
+		long countSalLessThan = employees.stream().filter(e -> e.getSalary()<=75000).count();
+		System.out.println("countSalLessThan 75000: "+ countSalLessThan);
+ 		
+		List<String> empNames = employees.stream().map(Employee::getName).toList();
+		System.out.println("empNames: "+ empNames);
+		
+		List<String> empNamesSortAsc = employees.stream().map(Employee::getName).sorted().toList();
+		System.out.println("empNamesSortAsc: "+ empNamesSortAsc);
+		
+		List<String> empNamesSortDsc = employees.stream().map(Employee::getName).sorted(Comparator.reverseOrder()).toList();
+		System.out.println("empNamesSortDsc: "+ empNamesSortDsc);
 	}
 	
 	public static List<Employee> getAllEmployees(){

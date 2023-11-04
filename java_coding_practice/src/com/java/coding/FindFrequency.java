@@ -1,8 +1,12 @@
 package com.java.coding;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class FindFrequency {
 	public static void main(String[] args) {
@@ -17,6 +21,13 @@ public class FindFrequency {
 		String input = sc.next();
 		Map<Character, Integer> result01 = approach01(input);
 		System.out.println("Output: "+result01);
+		
+		Map<Character, Long> result02 = approach02(input);
+		System.out.println("Output: "+result02);
+		
+		Map<Character, Long> result03 = approach03(input);
+		System.out.println("Output: "+result03);
+
 	}
 
 	private static Map<Character, Integer> approach01(String input) {
@@ -32,4 +43,18 @@ public class FindFrequency {
 		}
 		return map;
 	}
+	
+	private static Map<Character, Long> approach02(String input) {
+		List<Character> charList = new ArrayList<>();
+		for (char c : input.toCharArray()) {
+		    charList.add(c);
+		}
+		return charList.stream().collect(Collectors.groupingBy(Character::charValue, Collectors.counting()));
+	}
+	
+	private static Map<Character, Long> approach03(String input) {
+		return input.chars().mapToObj(c -> (char)c)
+				.collect(Collectors.groupingBy(Character::charValue, Collectors.counting()));
+	}
+
 }

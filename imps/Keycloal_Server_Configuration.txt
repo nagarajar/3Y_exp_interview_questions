@@ -1,0 +1,84 @@
+
+1. Login as username=admin pass= admin
+
+2. create realm -> name = rems-realm
+
+2.1 create clients: 
+	Client ID: rems-client
+	Access settings
+	Valid redirect URIs: http://localhost:9000/*
+			     http://192.168.34.200:9000/*
+2.2
+Clients -> Create client
+	Client ID: resource-server
+	Next
+	Client authentication : ON
+	Authorization : ON
+	Standard flow: uncheck
+	Direct access grants: uncheck
+	Next
+	Save
+	Credentials: copy client secret
+	Replace
+
+	in rems-web 
+	package com.cesns.rems.web.util;
+	class: WebUtil
+		public static final String CLIENT_SECRET = "client secret";
+	
+3. Create roles 3 roles
+	Role Name: manager Desciption: REMS Manager Role
+	Role Name: operator Desciption: REMS Operator Role
+	Role Name: sengineer Desciption: REMS Service Engineer Role
+
+4. Create Users:
+4.1	name: nagaraja
+	Credintials:
+	set pass: nagaraja -> temp off -> save
+	Role Mapping: assign role -> select manager -> assign
+4.2	Username: manager
+	First name: REMS
+	Last name: Manager
+	Credintials:
+	set pass: manager -> temp off -> save
+	Role Mapping: assign role -> select manager -> assign
+4.3	Username: operator
+	First name: REMS
+	Last name: Operator
+	Credintials:
+	set pass: operator> temp off -> save
+	Role Mapping: assign role -> select operator -> assign
+4.4	Username: sengineer
+	First name: REMS
+	Last name: SEngineer
+	Credintials:
+	set pass: sengineer -> temp off -> save
+	Role Mapping: assign role -> select sengineer -> assign
+4.5	Username: admin
+	First name: REMS
+	Last name: Admin
+	Credintials:
+	set pass: $Admin$ -> temp off -> save
+	Role Mapping: assign role -> select below roles
+		=> uma_authorization -> Assign
+		Note: Select: Filter by client then search for below roles -> assign
+		1. manage-users
+		2. query-clients
+		3. query-realms
+		4. query-users
+		5. query-groups
+		6. impersonation
+		7. view-clients
+		8. view-authorization
+
+
+5. In rems-web -  update CLIENT_SECRET
+package com.cesns.rems.web.util;
+class: WebUtil
+
+@UtilityClass
+public class WebUtil {
+
+	public static final String CLIENT_SECRET = "**********";
+
+}

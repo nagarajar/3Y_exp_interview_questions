@@ -1,0 +1,34 @@
+First Way
+---------
+
+1. git clone master
+
+2. git branch feature/common-api/plantgroup-api
+
+3. git checkout feature/common-api/plantgroup-api
+
+4. we have to complete the task and then add, commit in local feature branch
+
+5. git push origin feature/common-api/plantgroup-api
+
+ OR
+
+We have to follow the Second way confirmed by Samba
+----------
+Second Way
+----------
+
+1. git clone master
+
+2. we have to complete the task and then add, commit in local repo
+
+-------------------------------Skip----------------------------------------
+3. Create a branch with name feature/common-api/plantgroup-api in Azure
+---------------------------------------------------------------------------
+
+4. git push origin feature/common-api/plantgroup-api
+
+$ git commit -m "PlantGroup API's Implementation Completed"
+
+
+git push origin feature/oandm-api/wofunction-api

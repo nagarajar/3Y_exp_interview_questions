@@ -6,7 +6,7 @@ public class FindPower {
 	public static void main(String[] args) {
 		/*
 		 * Write a program to find the power(a,b) where a and b are integers
-		 * Input : B=3, P=3
+		 * Input : B=2, P=3
 		 * Output: 8 
 		 */
 		

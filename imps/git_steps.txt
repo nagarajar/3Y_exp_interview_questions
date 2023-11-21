@@ -1,7 +1,0 @@
-1. git clone https://CESNeoSilica@dev.azure.com/CESNeoSilica/REMS/_git/REMS-SOLAR
-2. git checkout portfolio-plant-features
-3. update the changes
-4. pull the latest code before push
-	git pull origin branchName
-5. then push to branch
-	git push origin branchName

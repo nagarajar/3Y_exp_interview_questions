@@ -1,6 +1,7 @@
 package com.java.coding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,14 @@ public class FindFrequency {
 		
 		Map<Character, Long> result03 = approach03(input);
 		System.out.println("Output: "+result03);
+		
+		Map<String, Long> result04 = approach04(input);
+		System.out.println("Output: "+result04);
 
+	}
+
+	private static Map<String, Long> approach04(String input) {
+		return Arrays.asList(input.split("")).stream().collect(Collectors.groupingBy(String::toString, Collectors.counting()));
 	}
 
 	private static Map<Character, Integer> approach01(String input) {

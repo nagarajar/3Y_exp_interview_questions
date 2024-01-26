@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class EmployeeTest {
@@ -11,36 +12,76 @@ public class EmployeeTest {
 	public static void main(String[] args) {
 		/*
 		 * Using Java 8 Feature solve the below questions
-		 * Q1. How many male and female employees are there in organization ?
-		 * Q2. Print all department names in the organization ?
-		 * Q3. Get count of employees where sal > 75000, and < 75000 separate counts
-		 * Q4. Get list of employee names
-		 * Q5. Sort the list of employee names
 		 */
 		
 		List<Employee> employees = getAllEmployees();
 		System.out.println("size(): "+ employees.size());
 		
+		/*
+		 * Q1. How many male and female employees are there in organization ?
+		 */
 		Map<String, Long> genderCount = employees.stream().collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
 		System.out.println("Gender Count: "+ genderCount);
 		
+		/*
+		 *  Q2. Print all department names in the organization ?
+		 */
 		List<String> departments = employees.stream().map(Employee::getDepartment).distinct().toList();
 		System.out.println("Departments: "+ departments);
 		
+		/*
+		 * Q3. Get count of employees where sal > 75000, and < 75000 separate counts
+		 */
 		long countSalGreater = employees.stream().filter(e -> e.getSalary()>75000).count();
 		System.out.println("countSalGreater 75000: "+ countSalGreater);
 		
 		long countSalLessThan = employees.stream().filter(e -> e.getSalary()<=75000).count();
 		System.out.println("countSalLessThan 75000: "+ countSalLessThan);
  		
+		/*
+		 * Q4. Get list of employee names
+		 */
 		List<String> empNames = employees.stream().map(Employee::getName).toList();
 		System.out.println("empNames: "+ empNames);
 		
+		/*
+		 * Q5. Sort the list of employee names
+		 */
 		List<String> empNamesSortAsc = employees.stream().map(Employee::getName).sorted().toList();
 		System.out.println("empNamesSortAsc: "+ empNamesSortAsc);
 		
 		List<String> empNamesSortDsc = employees.stream().map(Employee::getName).sorted(Comparator.reverseOrder()).toList();
 		System.out.println("empNamesSortDsc: "+ empNamesSortDsc);
+		
+		/*
+		 * Q6. Problem Statement: GROUP BY Department and Find Number of employees
+		 */
+		Map<String, Long> employeesCountByDept = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.counting()));
+		System.out.println("employeesCountByDept: "+ employeesCountByDept);
+		
+		/*
+		 * Q7. Problem Statement: GROUP BY Department and Find Max Salary
+		 */
+		//Step1 -> Group by Dept
+		//Step2 -> Compare max salary by employee salary
+		Map<String, Optional<Employee>> employeesMaxSalByDept = employees.stream()
+				.collect(Collectors.groupingBy(Employee::getDepartment, 
+												Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
+		System.out.println("employeesMaxSalByDept: "+ employeesMaxSalByDept);
+		
+		//If you need Map<Dept,Salary>
+		Map<String, Double> maxSalByDept = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment, 
+									Collectors.collectingAndThen(
+											Collectors.maxBy(Comparator.comparing(Employee::getSalary)), 
+											emp -> emp.get().getSalary())));
+		System.out.println("maxSalByDept: "+ maxSalByDept);
+		
+		//If you need Map<Dept, Employee>
+		Map<String, Employee> employeeWithMaxSalByDept = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment, 
+				Collectors.collectingAndThen(
+						Collectors.maxBy(Comparator.comparing(Employee::getSalary)), 
+						emp -> emp.get())));
+		System.out.println("employeeWithMaxSalByDept: "+ employeeWithMaxSalByDept);
 	}
 	
 	public static List<Employee> getAllEmployees(){

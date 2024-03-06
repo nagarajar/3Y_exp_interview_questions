@@ -55,7 +55,7 @@ public class ReverseStringOnlyIfAlphabets {
                 stack.push(ch);
             }
         }
-        System.out.println(stack);
+        //System.out.println(stack);
         StringBuilder result = new StringBuilder();
         for (char ch : input.toCharArray()) {
             if (Character.isAlphabetic(ch)) {
@@ -64,7 +64,7 @@ public class ReverseStringOnlyIfAlphabets {
                 result.append(ch);
             }
         }
-        System.out.println(stack);
+        //System.out.println(stack);
 
         return result.toString();
     }
